@@ -14,6 +14,7 @@
 		C06973E31AC7E58100216829 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C06973E21AC7E58100216829 /* Images.xcassets */; };
 		C06973E61AC7E58100216829 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06973E41AC7E58100216829 /* LaunchScreen.xib */; };
 		C06973F21AC7E58200216829 /* SwiftTodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973F11AC7E58200216829 /* SwiftTodoTests.swift */; };
+		C06973FC1AC7E68800216829 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973FB1AC7E68800216829 /* Sample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		C06973EB1AC7E58200216829 /* SwiftTodoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftTodoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06973F01AC7E58200216829 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C06973F11AC7E58200216829 /* SwiftTodoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTodoTests.swift; sourceTree = "<group>"; };
+		C06973FB1AC7E68800216829 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				C06973E21AC7E58100216829 /* Images.xcassets */,
 				C06973E41AC7E58100216829 /* LaunchScreen.xib */,
 				C06973DA1AC7E58100216829 /* SwiftTodo.xcdatamodeld */,
+				C06973FB1AC7E68800216829 /* Sample.swift */,
 				C06973D61AC7E58100216829 /* Supporting Files */,
 			);
 			path = SwiftTodo;
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C06973DE1AC7E58100216829 /* ViewController.swift in Sources */,
+				C06973FC1AC7E68800216829 /* Sample.swift in Sources */,
 				C06973D91AC7E58100216829 /* AppDelegate.swift in Sources */,
 				C06973DC1AC7E58100216829 /* SwiftTodo.xcdatamodeld in Sources */,
 			);

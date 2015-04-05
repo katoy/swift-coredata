@@ -413,6 +413,7 @@
 				C06973F71AC7E58200216829 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C06973F81AC7E58200216829 /* Build configuration list for PBXNativeTarget "SwiftTodoTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +422,7 @@
 				C06973FA1AC7E58200216829 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

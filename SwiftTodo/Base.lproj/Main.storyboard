@@ -89,13 +89,18 @@
                                     <action selector="deleteX:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TfP-9s-7g7"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l3a-X4-xoy">
+                                <rect key="frame" x="0.0" y="209" width="600" height="391"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="myItemId" destination="QJx-KR-oAr" id="T5q-Rt-uy1"/>
                         <outlet property="myItemName" destination="4DH-Ve-FKX" id="Mui-QB-r3W"/>
                         <outlet property="myLabel" destination="aEM-XF-Hms" id="vKI-mo-43p"/>
+                        <outlet property="tableView" destination="l3a-X4-xoy" id="6dM-dT-9ye"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

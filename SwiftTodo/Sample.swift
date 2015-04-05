@@ -13,5 +13,5 @@ class Sample: NSManagedObject {
 
     @NSManaged var itemId: NSNumber
     @NSManaged var itemName: String
-
+    @NSManaged var itemTime: NSDate
 }

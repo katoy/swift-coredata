@@ -63,7 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // See  http://d.hatena.ne.jp/aoki_p/20141127/1417100836
         //     > Core Dataで作成されたSQLiteファイルの場所を確認する
         // ===== AppDelegateのpersistentStoreCoodinator属性を評価する =====
-        let coodinator = (UIApplication.sharedApplication().delegate as AppDelegate).persistentStoreCoordinator
+        let coodinator = (UIApplication.sharedApplication().delegate as! AppDelegate).persistentStoreCoordinator
         println(coodinator)
         // =============================================================
 
@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var sampleData = [Sample]()
 
     func fetchData() {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let fetchRequest = NSFetchRequest(entityName: "Sample")
             // itemTime の降順でソートする
@@ -120,13 +120,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     // itemId :Int が存在するかを調べる。
-    func find(id:Int) -> Bool {
+    func find_by_id(id:Int) -> Bool {
         if id == 0 {
             myLabel.text = "Error: Please set id."
             return false
         }
 
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
@@ -144,12 +144,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return false
     }
     // itemId :String が存在するかを調べる。
-    func find(idStr:String) -> Bool {
+    func findX(idStr:String) -> Bool {
         if idStr == "" {
             myLabel.text = "Error: Please set id."
             return false
         }
-        return find(idStr.toInt()!)
+        return find_by_id(idStr.toInt()!)
     }
 
     // id, name を新規追加する。
@@ -158,15 +158,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             myLabel.text = "Error: Please set id."
             return false
         }
-        if find(myItemId.text) {
+        if findX(myItemId.text) {
             myLabel.text = "Error: Already exist the id."
             return false
         }
 
-        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let managedObject: AnyObject = NSEntityDescription.insertNewObjectForEntityForName("Sample", inManagedObjectContext: managedObjectContext)
-            let sample = managedObject as SwiftTodo.Sample
+            let sample = managedObject as! SwiftTodo.Sample
             sample.itemId = myItemId.text.toInt()!
             sample.itemName = myItemName.text
             sample.itemTime = NSDate()
@@ -181,11 +181,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             myLabel.text = "Error: Please set id."
             return nil
         }
-        if !find(myItemId.text) {
+        if !findX(myItemId.text) {
             myLabel.text = "Error: Not found id."
             return nil
         }
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
@@ -197,7 +197,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var error: NSError? = nil;
             if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
                 for managedObject in results {
-                    let sample = managedObject as Sample;
+                    let sample = managedObject as! Sample;
                     return sample.itemName
                 }
             }
@@ -211,11 +211,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             myLabel.text = "Error: Please set id."
             return false
         }
-        if !find(myItemId.text) {
+        if !findX(myItemId.text) {
             myLabel.text = "Error: Not found id."
             return false
         }
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
@@ -226,7 +226,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var error: NSError? = nil;
             if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
                 for managedObject in results {
-                    let sample = managedObject as Sample;
+                    let sample = managedObject as! Sample;
                     sample.itemName = myItemName.text
                     sample.itemTime = NSDate()
                 }
@@ -242,11 +242,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             myLabel.text = "Error: Please set id."
             return false
         }
-        if !find(myItemId.text) {
+        if !findX(myItemId.text) {
             myLabel.text = "Error: Not found id."
             return false
         }
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
@@ -258,7 +258,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var error: NSError? = nil;
             if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
                 for managedObject in results {
-                    let sample = managedObject as Sample;
+                    let sample = managedObject as! Sample;
                     managedObjectContext.deleteObject(sample)
                     return true
                 }

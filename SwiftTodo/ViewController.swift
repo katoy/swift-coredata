@@ -22,35 +22,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var myItemName: UITextField!
     @IBOutlet weak var myItemId: UITextField!
     @IBAction func create(sender: UIButton) {
-        myLabel.text = ""
-        if insertData() {
-            myLabel.text = "created!"
-            tableView.reloadData()
-        }
+        do_create()
     }
-    @IBAction func read(sender: UIButton) {
-        myLabel.text = ""
-        if let name = readData() {
-            myItemName.text = name
-            myLabel.text = name
-            myLabel.text = "readed!"
-        }
 
+    @IBAction func read(sender: UIButton) {
+        do_read()
     }
+
     @IBAction func update(sender: UIButton) {
-        myLabel.text = ""
-        if updateData() {
-            println("itemId:\(myItemId.text) itemName:\(myItemName.text)")
-             myLabel.text = "updated!"
-            tableView.reloadData()
-        }
+        do_update()
     }
     @IBAction func deleteX(sender: AnyObject) {
-        myLabel.text = ""
-        if deleteData() {
-            myLabel.text = "deleted!"
-            tableView.reloadData()
-        }
+        do_delete()
     }
     @IBOutlet weak var tableView: UITableView!
 
@@ -71,6 +54,48 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func do_create() {
+        myLabel.text = ""
+        if insertData() {
+            myLabel.text = "created!"
+            tableView.reloadData()
+        }
+    }
+    func do_read() {
+        myLabel.text = ""
+        if let name = readData() {
+            myItemName.text = name
+            myLabel.text = "readed!"
+        }
+    }
+    func do_update() {
+        myLabel.text = ""
+        if updateData() {
+            println("itemId:\(myItemId.text) itemName:\(myItemName.text)")
+            myLabel.text = "updated!"
+            tableView.reloadData()
+        }
+    }
+    func do_delete() {
+        myLabel.text = ""
+        if deleteData() {
+            myLabel.text = "deleted!"
+            tableView.reloadData()
+        }
+    }
+    // idStr の書式をチェックする。
+    func check_id(idStr: String?) -> Bool {
+        if idStr == "" {
+            myLabel.text = "Error: Please set id."
+            return false
+        }
+        if idStr!.toInt() == nil {
+            myLabel.text = "Error: id is not integer"
+            return false
+        }
+        return true
     }
 
     // セルに表示する情報を得る。
@@ -109,6 +134,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
 
+    // Table の行のスワイプ処理
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            // Entityの削除
+            fetchData()
+            let id = sampleData[indexPath.row].itemId
+            deleteDataAtIndex("\(id)".toInt()!)
+            // 表示の更新 (アニメーション付き)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete;
+    }
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+        return "削除"
+    }
+
     // Cellが選択された際に呼び出される.
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("Num: \(indexPath.row)")
@@ -116,11 +159,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // println("Value: \(s.itemId) = \(s.itemName)")
         // 選択したセルの内容をテキストエリアに転送する。
         myItemId.text   = "\(s.itemId)"
-        myItemName.text = s.itemName
+        do_read()
     }
 
-    // itemId :Int が存在するかを調べる。
-    func find_by_id(id:Int) -> Bool {
+    // id :Int が存在するかを調べる。
+    func find_by_int(id:Int) -> Bool {
         if id == 0 {
             myLabel.text = "Error: Please set id."
             return false
@@ -143,22 +186,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         return false
     }
-    // itemId :String が存在するかを調べる。
-    func findX(idStr:String) -> Bool {
-        if idStr == "" {
-            myLabel.text = "Error: Please set id."
-            return false
+    // idStr :String が存在するかを調べる。
+    func find_by_str(idStr:String?) -> Bool {
+        if let str = idStr {
+            if str == "" {
+                myLabel.text = "Error: Please set id."
+                return false
+            }
+            if let num = idStr!.toInt() {
+                return find_by_int(num)
+            }
         }
-        return find_by_id(idStr.toInt()!)
+        return false
     }
 
     // id, name を新規追加する。
     func insertData() -> Bool {
-        if myItemId.text == "" {
-            myLabel.text = "Error: Please set id."
+        if false == check_id(myItemId.text) {
             return false
         }
-        if findX(myItemId.text) {
+        if find_by_str(myItemId.text) {
             myLabel.text = "Error: Already exist the id."
             return false
         }
@@ -167,21 +214,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let managedObjectContext = appDelegate.managedObjectContext {
             let managedObject: AnyObject = NSEntityDescription.insertNewObjectForEntityForName("Sample", inManagedObjectContext: managedObjectContext)
             let sample = managedObject as! SwiftTodo.Sample
-            sample.itemId = myItemId.text.toInt()!
-            sample.itemName = myItemName.text
-            sample.itemTime = NSDate()
-            appDelegate.saveContext()
+            if let num = myItemId.text.toInt() {
+                sample.itemId = num
+                sample.itemName = myItemName.text
+                sample.itemTime = NSDate()
+                appDelegate.saveContext()
+            }
         }
         return true
     }
 
     // itemId から itemName を得る。
     func readData() -> String? {
-        if myItemId.text == "" {
-            myLabel.text = "Error: Please set id."
+        if false == check_id(myItemId.text) {
             return nil
         }
-        if !findX(myItemId.text) {
+        if !find_by_str(myItemId.text) {
             myLabel.text = "Error: Not found id."
             return nil
         }
@@ -207,11 +255,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     // itemId の itemName を変更する
     func updateData() -> Bool {
-        if myItemId.text == "" {
-            myLabel.text = "Error: Please set id."
+        if false == check_id(myItemId.text) {
             return false
         }
-        if !findX(myItemId.text) {
+        if !find_by_str(myItemId.text) {
             myLabel.text = "Error: Not found id."
             return false
         }
@@ -237,22 +284,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     // itemId を削除する。
-    func deleteData() -> Bool {
-        if myItemId.text == "" {
-            myLabel.text = "Error: Please set id."
-            return false
-        }
-        if !findX(myItemId.text) {
-            myLabel.text = "Error: Not found id."
-            return false
-        }
+    func deleteDataAtIndex(dataIndex: Int) -> Bool {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
             fetchRequest.entity = entityDiscription;
 
-            let predicate = NSPredicate(format: "%K = %d", "itemId", myItemId.text.toInt()!)
+            let predicate = NSPredicate(format: "%K = %d", "itemId", dataIndex)
             fetchRequest.predicate = predicate
 
             var error: NSError? = nil;
@@ -266,4 +305,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         return false
     }
+
+    // itemId を削除する。
+    func deleteData() -> Bool {
+        if false == check_id(myItemId.text) {
+            return false
+        }
+        if !find_by_str(myItemId.text) {
+            myLabel.text = "Error: Not found id."
+            return false
+        }
+        return deleteDataAtIndex(myItemId.text.toInt()!)
+    }
+
 }

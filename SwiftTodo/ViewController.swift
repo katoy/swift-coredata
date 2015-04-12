@@ -12,7 +12,6 @@
 //     http://daifuku-p.org/w/?p=529
 //       SWIFTでCOREDATAを使う[SELECT編]
 
-
 import UIKit
 import CoreData
 

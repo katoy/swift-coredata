@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //     > Core Dataで作成されたSQLiteファイルの場所を確認する
         // ===== AppDelegateのpersistentStoreCoodinator属性を評価する =====
         let coodinator = (UIApplication.sharedApplication().delegate as! AppDelegate).persistentStoreCoordinator
-        println(coodinator)
+        print(coodinator)
         // =============================================================
 
     }
@@ -58,7 +58,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func do_create() {
         myLabel.text = ""
         if insertData() {
-            myLabel.text = "created!"
+            myLabel.text = "新規登録しました！"
             tableView.reloadData()
         }
     }
@@ -66,32 +66,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         myLabel.text = ""
         if let name = readData() {
             myItemName.text = name
-            myLabel.text = "readed!"
+            myLabel.text = "再読み込みしました！"
         }
     }
     func do_update() {
         myLabel.text = ""
         if updateData() {
-            println("itemId:\(myItemId.text) itemName:\(myItemName.text)")
-            myLabel.text = "updated!"
+            print("itemId:\(myItemId.text) itemName:\(myItemName.text)")
+            myLabel.text = "更新しました！"
             tableView.reloadData()
         }
     }
     func do_delete() {
         myLabel.text = ""
         if deleteData() {
-            myLabel.text = "deleted!"
+            myLabel.text = "削除しました！"
             tableView.reloadData()
         }
     }
     // idStr の書式をチェックする。
     func check_id(idStr: String?) -> Bool {
         if idStr == "" {
-            myLabel.text = "Error: Please set id."
+            myLabel.text = "エラー: id を指定してください。"
             return false
         }
-        if idStr!.toInt() == nil {
-            myLabel.text = "Error: id is not integer"
+        if Int(idStr!) == nil {
+            myLabel.text = "エラー: id は整数を指定してください。"
             return false
         }
         return true
@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // itemTime の降順でソートする
             let sortDescriptor = NSSortDescriptor(key: "itemTime", ascending: false)
             fetchRequest.sortDescriptors = [sortDescriptor]
-            if let fetchResults = managedObjectContext.executeFetchRequest(fetchRequest, error: nil) as? [Sample] {
+            if let fetchResults = (try? managedObjectContext.executeFetchRequest(fetchRequest)) as? [Sample] {
                 sampleData = fetchResults
             }
         }
@@ -139,7 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // Entityの削除
             fetchData()
             let id = sampleData[indexPath.row].itemId
-            deleteDataAtIndex("\(id)".toInt()!)
+            deleteDataAtIndex(Int("\(id)")!)
             // 表示の更新 (アニメーション付き)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
@@ -147,13 +147,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.Delete;
     }
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
         return "削除"
     }
 
     // Cellが選択された際に呼び出される.
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("Num: \(indexPath.row)")
+        print("Num: \(indexPath.row)")
         let s = sampleData[indexPath.row]
         // println("Value: \(s.itemId) = \(s.itemName)")
         // 選択したセルの内容をテキストエリアに転送する。
@@ -164,7 +164,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // id :Int が存在するかを調べる。
     func find_by_int(id:Int) -> Bool {
         if id == 0 {
-            myLabel.text = "Error: Please set id."
+            myLabel.text = "エラー: id を指定してください。"
             return false
         }
 
@@ -176,11 +176,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             let predicate = NSPredicate(format: "%K = %d", "itemId", id)
             fetchRequest.predicate = predicate
-            var error: NSError? = nil;
-            if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
+            do {
+                let results = try managedObjectContext.executeFetchRequest(fetchRequest)
                 if results.count > 0 {
                     return true
                 }
+            } catch {
+                return false
             }
         }
         return false
@@ -189,10 +191,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func find_by_str(idStr:String?) -> Bool {
         if let str = idStr {
             if str == "" {
-                myLabel.text = "Error: Please set id."
+                myLabel.text = "エラー: id を指定してください。"
                 return false
             }
-            if let num = idStr!.toInt() {
+            if let num = Int(idStr!) {
                 return find_by_int(num)
             }
         }
@@ -213,9 +215,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let managedObjectContext = appDelegate.managedObjectContext {
             let managedObject: AnyObject = NSEntityDescription.insertNewObjectForEntityForName("Sample", inManagedObjectContext: managedObjectContext)
             let sample = managedObject as! SwiftTodo.Sample
-            if let num = myItemId.text.toInt() {
+            if let num = Int(myItemId.text!) {
                 sample.itemId = num
-                sample.itemName = myItemName.text
+                sample.itemName = myItemName.text!
                 sample.itemTime = NSDate()
                 appDelegate.saveContext()
             }
@@ -229,7 +231,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return nil
         }
         if !find_by_str(myItemId.text) {
-            myLabel.text = "Error: Not found id."
+            myLabel.text = "エラー: その id は存在していません。"
             return nil
         }
         let appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -238,15 +240,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let fetchRequest = NSFetchRequest();
             fetchRequest.entity = entityDiscription;
 
-            let predicate = NSPredicate(format: "%K = %d", "itemId", myItemId.text.toInt()!)
+            let predicate = NSPredicate(format: "%K = %d", "itemId", Int(myItemId.text!)!)
             fetchRequest.predicate = predicate
 
-            var error: NSError? = nil;
-            if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
+            do {
+                let results = try managedObjectContext.executeFetchRequest(fetchRequest)
                 for managedObject in results {
                     let sample = managedObject as! Sample;
                     return sample.itemName
                 }
+            } catch {
+                return nil
             }
         }
         return nil
@@ -258,7 +262,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return false
         }
         if !find_by_str(myItemId.text) {
-            myLabel.text = "Error: Not found id."
+            myLabel.text = "エラー: その id は存在していません。"
             return false
         }
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -266,16 +270,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let entityDiscription = NSEntityDescription.entityForName("Sample", inManagedObjectContext: managedObjectContext);
             let fetchRequest = NSFetchRequest();
             fetchRequest.entity = entityDiscription;
-            let predicate = NSPredicate(format: "%K = %d", "itemId", myItemId.text.toInt()!)
+            let predicate = NSPredicate(format: "%K = %d", "itemId", Int(myItemId.text!)!)
             fetchRequest.predicate = predicate
 
-            var error: NSError? = nil;
-            if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
+            do {
+                let results = try managedObjectContext.executeFetchRequest(fetchRequest)
                 for managedObject in results {
                     let sample = managedObject as! Sample;
-                    sample.itemName = myItemName.text
+                    sample.itemName = myItemName.text!
                     sample.itemTime = NSDate()
                 }
+            } catch {
+                return false
             }
             appDelegate.saveContext()
         }
@@ -293,13 +299,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let predicate = NSPredicate(format: "%K = %d", "itemId", dataIndex)
             fetchRequest.predicate = predicate
 
-            var error: NSError? = nil;
-            if var results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) {
+            do {
+                let results = try managedObjectContext.executeFetchRequest(fetchRequest)
                 for managedObject in results {
                     let sample = managedObject as! Sample;
                     managedObjectContext.deleteObject(sample)
                     return true
                 }
+            } catch {
+                return false
             }
         }
         return false
@@ -311,10 +319,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return false
         }
         if !find_by_str(myItemId.text) {
-            myLabel.text = "Error: Not found id."
+            myLabel.text = "エラー: その id は存在していません。"
             return false
         }
-        return deleteDataAtIndex(myItemId.text.toInt()!)
+        return deleteDataAtIndex(Int(myItemId.text!)!)
     }
 
 }

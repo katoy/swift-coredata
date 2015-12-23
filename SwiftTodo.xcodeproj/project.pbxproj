@@ -15,7 +15,7 @@
 		C06973E61AC7E58100216829 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06973E41AC7E58100216829 /* LaunchScreen.xib */; };
 		C06973F21AC7E58200216829 /* SwiftTodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973F11AC7E58200216829 /* SwiftTodoTests.swift */; };
 		C06973FC1AC7E68800216829 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973FB1AC7E68800216829 /* Sample.swift */; };
-		C0858EF91ADA4CE0002630F9 /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0858EF81ADA4CE0002630F9 /* addViewController.swift */; };
+		C0CE9E7F1C2A2D730078E229 /* screenshot-001.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,8 @@
 		C06973F01AC7E58200216829 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C06973F11AC7E58200216829 /* SwiftTodoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTodoTests.swift; sourceTree = "<group>"; };
 		C06973FB1AC7E68800216829 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
-		C0858EF81ADA4CE0002630F9 /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
+		C0CE9E7C1C2A2A7D0078E229 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-001.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,8 @@
 		C06973CA1AC7E58100216829 = {
 			isa = PBXGroup;
 			children = (
+				C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */,
+				C0CE9E7C1C2A2A7D0078E229 /* README.md */,
 				C06973D51AC7E58100216829 /* SwiftTodo */,
 				C06973EE1AC7E58200216829 /* SwiftTodoTests */,
 				C06973D41AC7E58100216829 /* Products */,
@@ -86,7 +89,6 @@
 				C06973D81AC7E58100216829 /* AppDelegate.swift */,
 				C06973DD1AC7E58100216829 /* ViewController.swift */,
 				C06973DF1AC7E58100216829 /* Main.storyboard */,
-				C0858EF81ADA4CE0002630F9 /* addViewController.swift */,
 				C06973E21AC7E58100216829 /* Images.xcassets */,
 				C06973E41AC7E58100216829 /* LaunchScreen.xib */,
 				C06973DA1AC7E58100216829 /* SwiftTodo.xcdatamodeld */,
@@ -165,7 +167,9 @@
 		C06973CB1AC7E58100216829 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Youichi Kato";
 				TargetAttributes = {
 					C06973D21AC7E58100216829 = {
@@ -202,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C06973E11AC7E58100216829 /* Main.storyboard in Resources */,
+				C0CE9E7F1C2A2D730078E229 /* screenshot-001.png in Resources */,
 				C06973E61AC7E58100216829 /* LaunchScreen.xib in Resources */,
 				C06973E31AC7E58100216829 /* Images.xcassets in Resources */,
 			);
@@ -224,7 +229,6 @@
 				C06973DE1AC7E58100216829 /* ViewController.swift in Sources */,
 				C06973FC1AC7E68800216829 /* Sample.swift in Sources */,
 				C06973D91AC7E58100216829 /* AppDelegate.swift in Sources */,
-				C0858EF91ADA4CE0002630F9 /* addViewController.swift in Sources */,
 				C06973DC1AC7E58100216829 /* SwiftTodo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +291,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -301,7 +306,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -337,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -350,6 +355,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.katoy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -360,6 +366,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SwiftTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.katoy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -368,16 +375,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SwiftTodoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.katoy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTodo.app/SwiftTodo";
 			};
@@ -387,12 +391,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = SwiftTodoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.katoy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftTodo.app/SwiftTodo";
 			};

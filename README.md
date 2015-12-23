@@ -18,4 +18,4 @@
 
 * xcode 7.2で compile, run できるように更新
 
-![screenshot-001.png](screenshot-001.png)
+![coredata.gif](coredata.gif)

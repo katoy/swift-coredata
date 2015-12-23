@@ -15,7 +15,7 @@
 		C06973E61AC7E58100216829 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06973E41AC7E58100216829 /* LaunchScreen.xib */; };
 		C06973F21AC7E58200216829 /* SwiftTodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973F11AC7E58200216829 /* SwiftTodoTests.swift */; };
 		C06973FC1AC7E68800216829 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06973FB1AC7E68800216829 /* Sample.swift */; };
-		C0CE9E7F1C2A2D730078E229 /* screenshot-001.png in Resources */ = {isa = PBXBuildFile; fileRef = C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */; };
+		C0CE9E811C2A34A70078E229 /* coredata.gif in Resources */ = {isa = PBXBuildFile; fileRef = C0CE9E801C2A34A70078E229 /* coredata.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,7 @@
 		C06973F11AC7E58200216829 /* SwiftTodoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTodoTests.swift; sourceTree = "<group>"; };
 		C06973FB1AC7E68800216829 /* Sample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		C0CE9E7C1C2A2A7D0078E229 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-001.png"; sourceTree = "<group>"; };
+		C0CE9E801C2A34A70078E229 /* coredata.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coredata.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 		C06973CA1AC7E58100216829 = {
 			isa = PBXGroup;
 			children = (
-				C0CE9E7E1C2A2D730078E229 /* screenshot-001.png */,
+				C0CE9E801C2A34A70078E229 /* coredata.gif */,
 				C0CE9E7C1C2A2A7D0078E229 /* README.md */,
 				C06973D51AC7E58100216829 /* SwiftTodo */,
 				C06973EE1AC7E58200216829 /* SwiftTodoTests */,
@@ -206,9 +206,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C06973E11AC7E58100216829 /* Main.storyboard in Resources */,
-				C0CE9E7F1C2A2D730078E229 /* screenshot-001.png in Resources */,
 				C06973E61AC7E58100216829 /* LaunchScreen.xib in Resources */,
 				C06973E31AC7E58100216829 /* Images.xcassets in Resources */,
+				C0CE9E811C2A34A70078E229 /* coredata.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
